@@ -1,4 +1,9 @@
-You can find DAX Queries and Model information I used to create Weekly average  by country and Weekly Ordered and Shipped amount visuals.
-There are 3 visualization tracking different KPIs that senior managers wants to see for their business. Lets check them out one by one:
+You can find DAX Queries and Model information I used to create Weekly average  by country and Weekly Ordered and                        
+Shipped amount visuals.
+There are 3 visualization tracking different KPIs that senior managers wants to see for their business.
+Lets check them out one by one:
 
-1. 
+Before moving with any of the visualization , the first step is to build a Calender date table. A calender date table is 
+very integral part of a power bi model as most of the KPIs are monitored weekly, monthly,quarterly or yearly basis.
+
+In this report I am creating Calender table with the help of Power Query:
