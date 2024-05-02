@@ -11,5 +11,43 @@ In this report I am creating Calender table with the help of Power Query: You ca
 Lets start with the 1st visual
 1. Order amount and shipped amount by month and year: So we have two dates in our Order table i.e Order date and shipped date. 
 I have created one to many relationship between Order date column in orders table to date column in my calender table.
-so for calculating the order amount we can have a simple DAX measure
+so for calculating the order amount we can have a simple DAX measure:
+//
+SUMX(Orders, Orders[OrderQuantity]*Orders[SalesPrice])
+//
+For calculating the shipped amountwe have two options:
+first you can use USERELATIONSHIP fucntion - 
+//
+CALCULATE([Order Amount],USERELATIONSHIP(Calender[DateKey],Orders[ShipDateKey]))
+//
+or you can use the below DAX measure to alter the filter context and calculate shipped amount
+// 
+Shipped Amount = 
+VAR First_date = FIRSTDATE(Calender[DateKey])
+VAR Last_date = LASTDATE(Calender[DateKey])
+VAR Filter_ =  FILTER(ALL(Orders), Orders[ShipDateKey] >= First_date && Orders[ShipDateKey] <= Last_date)
+RETURN 
+CALCULATE([Order Amount], Filter_)
+//
+
+Lets get onto next visual:
+We need to calculate average order amount per week per country:
+
+I have a weekending column in my calender date table which we will use to calculate this measure:
+//
+Weekly Average Sales = 
+VAR Total_Order = [Order Amount] / [No_Of_Week]
+VAR CountryNo = DISTINCTCOUNT(Orders[Territory.Country])
+RETURN
+IF (
+    NOT ISBLANK(SELECTEDVALUE('Orders'[Territory.Country])),
+    Total_Order,
+    Total_Order / CountryNo
+)
+//
+
+Our third and final visual is Bar chart by week:
+You can use the same Order amount measure and Shipped amount measure in the y-axis but remember to use Weekending
+column in the x-axis and make it categorical.
+
 
