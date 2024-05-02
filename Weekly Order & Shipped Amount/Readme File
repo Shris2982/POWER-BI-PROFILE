@@ -6,4 +6,10 @@ Lets check them out one by one:
 Before moving with any of the visualization , the first step is to build a Calender date table. A calender date table is 
 very integral part of a power bi model as most of the KPIs are monitored weekly, monthly,quarterly or yearly basis.
 
-In this report I am creating Calender table with the help of Power Query:
+In this report I am creating Calender table with the help of Power Query: You can find the code in my power bi fille for it.
+
+Lets start with the 1st visual
+1. Order amount and shipped amount by month and year: So we have two dates in our Order table i.e Order date and shipped date. 
+I have created one to many relationship between Order date column in orders table to date column in my calender table.
+so for calculating the order amount we can have a simple DAX measure
+
